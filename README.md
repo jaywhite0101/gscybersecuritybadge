@@ -41,7 +41,3 @@ Here's some media about cybersecurity!
 [Hidden Figures](https://www.imdb.com/title/tt4846340/): Celebrate the incredible achievements of under-recognized minds in computing and space—an inspiring reminder of how innovation changes the world.
 
 [Arrow](https://www.imdb.com/title/tt2193021/): A TV show featuring Felicity Smoak—a character who uses her tech savvy to help out in high-stakes situations. (Parents, please note: this show is rated TV-14.)
-
-# Events
-
-Let us know if you want us to help you earn another cybersecurity badge! Otherwise, here's some other 
