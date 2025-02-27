@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>System Access Point</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Style section: Controls how the page looks */
+        
+        /* Container that holds the login form */
+        .login-container {
+            width: 400px;
+            position: absolute;          /* Positions the container in the center of the screen */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);  /* Centers the container perfectly */
+            padding: 30px;
+            text-align: center;
+        }
+        
+        /* The lightning bolt icon at the top of the form */
+        .login-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: var(--terminal-green);      /* Uses the green color we defined in styles.css */
+            text-shadow: 0 0 10px var(--terminal-green);  /* Creates the glowing effect */
+        }
+        
+        /* Groups the username and password inputs */
+        .input-group {
+            margin: 20px 0;
+        }
+
+        /* Style for the input boxes */
+        input {
+            width: 80%;
+            background: var(--dark-blue);
+            border: 1px solid var(--terminal-green);
+            color: var(--terminal-green);
+            padding: 12px;
+            font-family: var(--terminal-font);
+        }
+        
+        /* The text that shows version information */
+        .access-text {
+            color: var(--terminal-green);
+            font-size: 0.8em;
+            margin-top: 20px;
+            animation: flicker 2s infinite;    /* Makes the text flicker like an old computer */
+        }
+        
+        /* Adds "AUTHENTICATION REQUIRED" text above the form */
+        #loginForm::before {
+            content: "AUTHENTICATION REQUIRED";
+            display: block;
+            color: var(--terminal-green);
+            margin-bottom: 20px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        
+        /* Styles for the error message that appears when password is wrong */
+        .error-message {
+            color: var(--error-red);
+            font-size: 0.9em;
+            margin-top: 5px;
+            height: 20px;
+            visibility: hidden;     /* Starts hidden until needed */
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        /* When error message should be shown */
+        .error-message.visible {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Animation that shakes the input when password is wrong */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header section with title and connection status -->
+    <div class="header">
+        <h1>SYSTEM ACCESS POINT</h1>
+        <div class="nav-status">
+            <span class="status-dot"></span>
+            SECURE CONNECTION ESTABLISHED
+        </div>
+    </div>
+
+    <!-- Main login form container -->
+    <div class="login-container">
+        <div class="login-icon">⚡</div>
+        <form id="loginForm">
+            <!-- Username field (pre-filled and read-only) -->
+            <div class="input-group">
+                <input type="text" 
+                       id="username" 
+                       value="TruckDriver123" 
+                       readonly>
+            </div>
+            <!-- Password field -->
+            <div class="input-group">
+                <input type="password" 
+                       id="password" 
+                       placeholder="ENTER ACCESS CODE"
+                       autocomplete="off">
+                <div class="error-message" id="errorMessage">
+                    ACCESS DENIED. INVALID CREDENTIALS.
+                </div>
+            </div>
+            <button type="submit">AUTHENTICATE</button>
+        </form>
+        <div class="access-text">
+            TERMINAL ACCESS v2.4.1
+        </div>
+    </div>
+
+    <script>
+        // This section controls what happens when users interact with the page
+
+        // What happens when the form is submitted
+        document.getElementById('loginForm').onsubmit = function(e) {
+            e.preventDefault();  // Prevents the form from actually submitting to a server
+            
+            // Get what the user typed in the password field
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Check if the password is correct
+            if (password === 'thisisagoodpassword') {
+                // If correct, go to the security question page
+                window.location.href = 'security-question.html';
+            } else {
+                // If wrong, show error message and shake the input
+                errorMessage.classList.add('visible');
+                const input = document.getElementById('password');
+                input.style.borderColor = 'var(--error-red)';
+                input.style.animation = 'shake 0.5s';
+                
+                // Stop shaking after half a second
+                setTimeout(() => {
+                    input.style.animation = '';
+                }, 500);
+            }
+        };
+
+        // Clear error message when user starts typing again
+        document.getElementById('password').addEventListener('input', function() {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.classList.remove('visible');
+            this.style.borderColor = 'var(--terminal-green)';
+        });
+    </script>
+</body>
+</html>

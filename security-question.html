@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Secondary Authentication Protocol</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* This page demonstrates Two-Factor Authentication (2FA)
+           2FA adds an extra layer of security by requiring two different types of verification:
+           1. Something you know (password from previous page)
+           2. Another thing you know (security question on this page)
+           
+           In real security systems, the second factor is usually:
+           - Something you have (like a phone for SMS codes)
+           - Something you are (fingerprint/face scan)
+           - Something you know (security questions, like we're using here)
+        */
+        
+        /* Container for the 2FA verification form */
+        .security-container {
+            width: 400px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 30px;
+            text-align: center;
+        }
+        
+        /* Lock icon at the top of the form */
+        .security-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+            color: var(--terminal-green);
+            text-shadow: 0 0 10px var(--terminal-green);
+        }
+
+        /* Style for the security question display */
+        .question {
+            font-size: 1.1em;
+            color: var(--terminal-green);
+            margin-bottom: 20px;
+            padding: 10px;
+            background: var(--dark-blue);
+            border: 1px solid var(--terminal-green);
+            border-radius: 3px;
+        }
+
+        /* Groups the answer input and error message */
+        .input-group {
+            margin: 20px 0;
+        }
+
+        input {
+            width: 80%;
+            background: var(--dark-blue);
+            border: 1px solid var(--terminal-green);
+            color: var(--terminal-green);
+            padding: 12px;
+            font-family: var(--terminal-font);
+        }
+
+        /* Protocol version display at bottom */
+        .verification-text {
+            color: var(--terminal-green);
+            font-size: 0.8em;
+            margin-top: 20px;
+            animation: flicker 2s infinite;
+        }
+
+        /* Adds the "SECONDARY AUTHENTICATION" header */
+        #securityForm::before {
+            content: "SECONDARY AUTHENTICATION REQUIRED";
+            display: block;
+            color: var(--terminal-green);
+            margin-bottom: 20px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        /* Styles for the error message */
+        .error-message {
+            color: var(--error-red);
+            font-size: 0.9em;
+            margin-top: 5px;
+            height: 20px;
+            visibility: hidden;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .error-message.visible {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* Animation for wrong answer shake effect */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header showing current security stage -->
+    <div class="header">
+        <h1>SECONDARY AUTHENTICATION PROTOCOL</h1>
+        <div class="nav-status">
+            <span class="status-dot"></span>
+            VERIFICATION IN PROGRESS
+        </div>
+    </div>
+
+    <!-- Main 2FA verification container -->
+    <div class="security-container">
+        <div class="security-icon">🔒</div>
+        <form id="securityForm">
+            <!-- The security question - in real systems, this would be customized per user -->
+            <div class="question">
+                SECURITY QUERY: What is your favorite Girl Scout cookie?
+            </div>
+            <div class="input-group">
+                <input type="text" 
+                       id="answer" 
+                       placeholder="ENTER RESPONSE"
+                       autocomplete="off">
+                <div class="error-message" id="errorMessage">
+                    VERIFICATION FAILED. ACCESS DENIED.
+                </div>
+            </div>
+            <button type="submit">VERIFY</button>
+        </form>
+        <div class="verification-text">
+            2FA PROTOCOL v1.2.8
+        </div>
+    </div>
+
+    <script>
+        /* This section handles the 2FA verification process
+           In a real system, this would:
+           1. Connect to a secure server
+           2. Check against encrypted answers
+           3. Use rate limiting to prevent brute force attempts
+           4. Log failed attempts for security monitoring
+        */
+
+        // Handle form submission
+        document.getElementById('securityForm').onsubmit = function(e) {
+            e.preventDefault();
+            
+            // Get and check the answer (case-insensitive)
+            const answer = document.getElementById('answer').value.toLowerCase();
+            const errorMessage = document.getElementById('errorMessage');
+            
+            // Verify the answer
+            if (answer === 'samoas') {
+                // If correct, proceed to secure chat
+                window.location.href = 'chat.html';
+            } else {
+                // If wrong, show error and shake effect
+                errorMessage.classList.add('visible');
+                const input = document.getElementById('answer');
+                input.style.borderColor = 'var(--error-red)';
+                input.style.animation = 'shake 0.5s';
+                
+                setTimeout(() => {
+                    input.style.animation = '';
+                }, 500);
+            }
+        };
+
+        // Clear error when user tries again
+        document.getElementById('answer').addEventListener('input', function() {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.classList.remove('visible');
+            this.style.borderColor = 'var(--terminal-green)';
+        });
+
+        /* Security Note:
+           This page demonstrates a basic 2FA system. Real 2FA implementations:
+           - Don't store answers in plain text
+           - Use secure comparison methods
+           - Implement timeout periods after failed attempts
+           - Often use time-based codes (TOTP) instead of static answers
+           - May use biometric data or physical security keys
+        */
+    </script>
+</body>
+</html>

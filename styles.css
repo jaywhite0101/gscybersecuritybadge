@@ -1,0 +1,189 @@
+:root {
+    --main-bg-color: #0a0a0a;
+    --secondary-bg: #1a1a1a;
+    --terminal-green: #00ff00;
+    --neon-blue: #00ffff;
+    --dark-blue: #001622;
+    --error-red: #ff0033;
+    --header-bg: #000000;
+    --text-color: #ffffff;
+    --terminal-font: 'Courier New', monospace;
+}
+
+body {
+    font-family: var(--terminal-font);
+    background-color: var(--main-bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    background-image: 
+        linear-gradient(rgba(0, 255, 0, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 0, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+.header {
+    background: var(--header-bg);
+    color: var(--terminal-green);
+    padding: 15px;
+    border-bottom: 2px solid var(--terminal-green);
+    text-shadow: 0 0 10px var(--terminal-green);
+}
+
+.container {
+    background: var(--secondary-bg);
+    border: 1px solid var(--terminal-green);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+    border-radius: 5px;
+    padding: 20px;
+    margin: 20px auto;
+    width: 80%;
+    max-width: 800px;
+}
+
+input {
+    background: var(--dark-blue);
+    border: 1px solid var(--terminal-green);
+    color: var(--terminal-green);
+    padding: 12px;
+    border-radius: 3px;
+    font-family: var(--terminal-font);
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 10px var(--terminal-green);
+}
+
+button {
+    background: var(--dark-blue);
+    color: var(--terminal-green);
+    border: 1px solid var(--terminal-green);
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: var(--terminal-font);
+    transition: all 0.3s;
+}
+
+button:hover {
+    background: var(--terminal-green);
+    color: var(--dark-blue);
+    box-shadow: 0 0 15px var(--terminal-green);
+}
+
+/* Chat specific styles */
+.chat-history {
+    background: var(--dark-blue);
+    border: 1px solid var(--terminal-green);
+}
+
+.message {
+    border: 1px solid rgba(0, 255, 0, 0.2);
+    background: rgba(0, 255, 0, 0.05);
+}
+
+.criminal {
+    border-color: var(--error-red);
+    background: rgba(255, 0, 0, 0.05);
+}
+
+.driver {
+    border-color: var(--neon-blue);
+    background: rgba(0, 255, 255, 0.05);
+}
+
+.username {
+    font-weight: bold;
+    text-shadow: 0 0 5px currentColor;
+}
+
+.criminal .username {
+    color: var(--error-red);
+}
+
+.driver .username {
+    color: var(--neon-blue);
+}
+
+.timestamp {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8em;
+}
+
+/* Login/Security specific styles */
+.login-container, .security-container {
+    background: var(--secondary-bg);
+    border: 1px solid var(--terminal-green);
+    box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+}
+
+.error-message {
+    color: var(--error-red);
+    text-shadow: 0 0 5px var(--error-red);
+}
+
+/* Status indicator */
+.nav-status {
+    color: var(--terminal-green);
+    animation: flicker 2s infinite;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--terminal-green);
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 10px var(--terminal-green);
+    margin-right: 5px;
+}
+
+/* Animations */
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+@keyframes scanline {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+@keyframes messageAppear {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Add scanline effect */
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: rgba(0, 255, 0, 0.1);
+    animation: scanline 2s linear infinite;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .chat-container {
+        width: 95%;
+        margin: 10px auto;
+    }
+    
+    .message {
+        max-width: 85%;
+    }
+}
