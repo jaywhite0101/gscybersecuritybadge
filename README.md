@@ -1,6 +1,6 @@
 # Girl Scout Cybersecurity Basics Badge Workshop
 
-Here's the code for the website we used in the Girl Scout Cybersecurity Basics badge! Feel free to look around and see how it was made. The comments in the files should help. Here's a link to the Github Pages, so you can go see the pages yourself: https://jaywhite0101.github.io/gscybersecuritybadge/login.html
+Here's the code for the website we used in the Girl Scout Cybersecurity Basics badge! Feel free to look around and see how it was made. The comments in the files should help. Here's a link to the Github Pages, so you can go see the pages yourself: [Site](https://jaywhite0101.github.io/gscybersecuritybadge/login.html)
 
 Check out the live demo on GitHub Pages:
 
