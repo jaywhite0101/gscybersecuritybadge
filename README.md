@@ -30,6 +30,8 @@ Women in Cybersecurity at Oregon State: Our website is still in progress, so for
 
 [Girls Who Code](https://girlswhocode.com): Girls Who Code is a great overall resource for computer science!
 
+[dcode](https://www.dcode.fr/cipher-identifier) Great toolkit of different cipher decoders. 
+
 # Media
 
 Here's some media about cybersecurity!
